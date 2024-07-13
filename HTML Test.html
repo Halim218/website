@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Liste</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #todo-list li {
+            padding: 8px 16px;
+            border-bottom: 1px solid #ccc;
+        }
+        .done {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do Liste</h1>
+    <input type="text" id="todo-input" placeholder="Neue Aufgabe hinzufügen...">
+    <button id="add-button">Hinzufügen</button>
+    <ul id="todo-list"></ul>
+
+    <script>
+        // Event Listener für den "Hinzufügen" Button
+        document.getElementById('add-button').addEventListener('click', function() {
+            var todoInput = document.getElementById('todo-input');
+            var newTodoText = todoInput.value.trim(); // Eingegebenen Text holen und Leerzeichen entfernen
+
+            if (newTodoText !== '') { // Sicherstellen, dass der Text nicht leer ist
+                var todoList = document.getElementById('todo-list');
+                var newTodoItem = document.createElement('li'); // Neues <li> Element erstellen
+                newTodoItem.textContent = newTodoText; // Textinhalt des <li> Elements setzen
+
+                // Event Listener für das Klicken auf das <li> Element, um es als erledigt zu markieren
+                newTodoItem.addEventListener('click', function() {
+                    this.classList.toggle('done'); // Umschalten der 'done' Klasse für durchgestrichene Darstellung
+                });
+
+                todoList.appendChild(newTodoItem); // <li> Element zur <ul> Liste hinzufügen
+                todoInput.value = ''; // Eingabefeld leeren
+                todoInput.focus(); // Fokus zurück auf das Eingabefeld setzen
+            }
+        });
+
+        // Event Listener für die 'Enter' Taste im Eingabefeld
+        document.getElementById('todo-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('add-button').click(); // Simuliere Klick auf "Hinzufügen" Button
+            }
+        });
+    </script>
+</body>
+</html>
